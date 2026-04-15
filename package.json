@@ -1,0 +1,48 @@
+{
+  "name": "tag-cloud",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --coverage --runInBand --ci",
+    "prepare": "lefthook install",
+    "db:push": "node -e \"require('fs').mkdirSync('data',{recursive:true})\" && drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "seed": "tsx scripts/seed.ts"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.14",
+    "drizzle-orm": "^0.39",
+    "nanoid": "^5",
+    "next": "^15",
+    "qrcode.react": "^4.2.0",
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "@next/eslint-plugin-next": "^16.2.3",
+    "@tailwindcss/postcss": "^4",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "drizzle-kit": "^0.30",
+    "eslint": "^9.39.4",
+    "globals": "^17.5.0",
+    "jest": "^30.3.0",
+    "lefthook": "^2.1.5",
+    "postcss": "^8",
+    "tailwindcss": "^4",
+    "tsx": "^4",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.58.2"
+  }
+}

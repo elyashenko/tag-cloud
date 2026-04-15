@@ -1,0 +1,18 @@
+---
+description: Tag Cloud Voting project conventions
+alwaysApply: true
+---
+
+# Tag Cloud Voting
+
+Real-time word cloud voting for events. Next.js 15, React 19, Tailwind 4, SQLite (@libsql/client), Drizzle ORM.
+
+## Rules
+
+1. **No predefined tags** — sessions start empty. Tags are created ONLY by viewer input.
+2. **Viewer objectivity** — `/vote/[code]` must NEVER show the word cloud, stats, or others' answers.
+3. **Moderator can delete tags, NOT add them.** No POST `/tags` endpoint.
+4. **Case-insensitive matching** via JS `.toLowerCase()`, not SQL.
+5. All UI text is in **Russian**.
+
+For full architecture, API, and DB schema see `PRD.md`.

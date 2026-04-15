@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+data/
+drizzle/
+.env
+.env.local
+*.tsbuildinfo
+next-env.d.ts
