@@ -17,13 +17,14 @@ for (const envFile of envCandidates) {
   }
 }
 
-mkdirSync(resolve(process.cwd(), 'data'), { recursive: true });
-
 const isProduction = process.env.NODE_ENV === 'production';
 const databaseUrl =
   process.env.DATABASE_URL ?? process.env.TURSO_DATABASE_URL;
 const databaseAuthToken =
   process.env.DATABASE_AUTH_TOKEN ?? process.env.TURSO_AUTH_TOKEN;
+
+const resolvedDatabaseUrl = databaseUrl ?? 'file:data/tagcloud.db';
+const isFileDatabase = resolvedDatabaseUrl.startsWith('file:');
 
 if (isProduction && !databaseUrl) {
   throw new Error(
@@ -37,8 +38,12 @@ if (databaseUrl?.startsWith('libsql://') && !databaseAuthToken) {
   );
 }
 
+if (isFileDatabase) {
+  mkdirSync(resolve(process.cwd(), 'data'), { recursive: true });
+}
+
 const client = createClient({
-  url: databaseUrl ?? 'file:data/tagcloud.db',
+  url: resolvedDatabaseUrl,
   authToken: databaseAuthToken,
 });
 
