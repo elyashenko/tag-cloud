@@ -169,15 +169,31 @@ npm run seed
 ## Деплой на Vercel
 
 1. Установить Vercel CLI: `npm i -g vercel`
-2. Для production БД заменить SQLite на Turso (тот же @libsql/client, но облачный)
-3. `vercel deploy`
+2. В Vercel Marketplace создать Turso database
+3. Добавить переменные окружения в проект Vercel:
+   - либо `DATABASE_URL` + `DATABASE_AUTH_TOKEN`
+   - либо `TURSO_DATABASE_URL` + `TURSO_AUTH_TOKEN` (имена из Turso integration)
+4. Применить схему к удалённой базе: `npm run db:push`
+5. `vercel deploy`
 
 ### Переменные окружения (production)
 
 | Переменная               | Описание                        |
 | ------------------------ | ------------------------------- |
 | `NEXT_PUBLIC_APP_URL`    | Базовый URL приложения          |
-| `DATABASE_URL`           | URL базы (Turso)                |
+| `DATABASE_URL`           | URL базы (Turso / libSQL)       |
+| `DATABASE_AUTH_TOKEN`    | Токен доступа к Turso           |
+| `TURSO_DATABASE_URL`     | Альтернативное имя URL из integration |
+| `TURSO_AUTH_TOKEN`       | Альтернативное имя токена из integration |
+
+### Частые ошибки конфигурации
+
+- `DATABASE_URL (or TURSO_DATABASE_URL) is required in production.`
+  - Причина: в Vercel не задан URL переменной для БД
+  - Решение: добавить `DATABASE_URL` или `TURSO_DATABASE_URL` и сделать redeploy
+- `DATABASE_AUTH_TOKEN (or TURSO_AUTH_TOKEN) is required for Turso/libSQL remote database.`
+  - Причина: используется `libsql://...`, но не задан токен
+  - Решение: добавить `DATABASE_AUTH_TOKEN` или `TURSO_AUTH_TOKEN` и сделать redeploy
 
 ## Лицензия
 
