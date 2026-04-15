@@ -4,6 +4,19 @@ import * as schema from './schema';
 import { mkdirSync } from 'fs';
 import { resolve } from 'path';
 
+const envCandidates = ['.env.local', '.env.development.local', '.env'];
+const processWithEnvLoader = process as NodeJS.Process & {
+  loadEnvFile?: (path?: string) => void;
+};
+
+for (const envFile of envCandidates) {
+  try {
+    processWithEnvLoader.loadEnvFile?.(resolve(process.cwd(), envFile));
+  } catch {
+    // Ignore missing/unreadable env files and continue.
+  }
+}
+
 mkdirSync(resolve(process.cwd(), 'data'), { recursive: true });
 
 const isProduction = process.env.NODE_ENV === 'production';

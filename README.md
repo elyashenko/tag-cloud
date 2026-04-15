@@ -26,6 +26,20 @@ npm install
 npm run db:push
 ```
 
+Если используете Turso через интеграцию Vercel, сначала подтяните переменные:
+
+```bash
+vercel env pull .env.development.local
+```
+
+Проект автоматически читает `.env.local` и `.env.development.local`, поэтому дополнительных шагов для `drizzle-kit` не требуется.
+
+Можно выполнить всё одной командой:
+
+```bash
+npm run db:setup:vercel
+```
+
 ### 3. (Опционально) Создать демо-сессию
 
 ```bash

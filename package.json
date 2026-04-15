@@ -14,6 +14,7 @@
     "test:ci": "jest --coverage --runInBand --ci",
     "prepare": "lefthook install",
     "db:push": "node -e \"require('fs').mkdirSync('data',{recursive:true})\" && drizzle-kit push",
+    "db:setup:vercel": "vercel env pull .env.development.local && npm run db:push",
     "db:studio": "drizzle-kit studio",
     "seed": "tsx scripts/seed.ts"
   },
